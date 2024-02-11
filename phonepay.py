@@ -663,12 +663,12 @@ def new_frame(v):
     return data
 
 #STREAMLIT
-st.set_page_config(page_title= "Phonepay Pulse Data Visualization | By Vitasta Singh",
+st.set_page_config(page_title= "Phonepe Pulse Data Visualization | By Vitasta Singh",
                    
                    layout= "wide",
                    initial_sidebar_state= "expanded")
 
-st.title(":blue[Phonepay Pulse Data Visualization]")
+st.title(":blue[Phonepe Pulse Data Visualization]")
 
 with st.sidebar:
     st.header(":wave: :violet[**Hello! Welcome to the dashboard**]")
@@ -686,7 +686,7 @@ with st.sidebar:
 if selected == "Home":
     
     
-    st.header(":violet[📱PHONEPAY]  INDIA'S Most Trusted Payment Gateway")
+    st.header(":violet[📱PHONEPe]  INDIA'S Most Trusted Payment Gateway")
     st.subheader("DOMAIN: :green[Fintech]")
     st.subheader(":green[TECHNOLOGIES-USED]")
     st.markdown("Github Cloning, Python, Pandas, MYSQL, Streamlit, and Plotly")
