@@ -2,8 +2,8 @@ import json
 import os
 import streamlit as st
 import pandas as pd
-from sqlalchemy import create_engine
-import mysql.connector
+
+import pymysql
 import requests
 import plotly.express as px
 import plotly.graph_objects as go
@@ -423,7 +423,7 @@ custom_state_list = ['Andaman & Nicobar',
 topuser['States'] = topuser['States'].replace(dict(zip(top_user_list, custom_state_list)))
 
 #SQL 
-mydb = mysql.connector.connect(
+mydb = pymysql.connect(
   host="localhost",
   user="root",
   password="Chunnu@123",
@@ -592,7 +592,7 @@ topuser.to_csv('top_user.csv',index=False)
 
 
 def state_list():
-    mydb = mysql.connector.connect(host="localhost",user="root",password="Chunnu@123",database="phonepay")
+    mydb = pymysql.connect(host="localhost",user="root",password="Chunnu@123",database="phonepay")
     mycursor=mydb.cursor() 
     mycursor.execute(f"""select distinct States 
                         from aggregated_transaction
@@ -602,21 +602,21 @@ def state_list():
     return original_state
 
 def year_list():
-    mydb = mysql.connector.connect(host="localhost",user="root",password="Chunnu@123",database="phonepay")
+    mydb = pymysql.connect(host="localhost",user="root",password="Chunnu@123",database="phonepay")
     mycursor=mydb.cursor()
     mycursor.execute("SELECT distinct Years FROM aggregated_transaction order by Years asc;")
     data = mycursor.fetchall()
     data = [i[0] for i in data]
     return data
 def quarter_list():
-    mydb = mysql.connector.connect(host="localhost",user="root",password="Chunnu@123",database="phonepay")
+    mydb = pymysql.connect(host="localhost",user="root",password="Chunnu@123",database="phonepay")
     mycursor=mydb.cursor()
     mycursor.execute("SELECT distinct Quaters FROM aggregated_transaction order by Quaters asc;")
     data = mycursor.fetchall()
     data = [i[0] for i in data]
     return data
 def get_transaction_type():
-    mydb = mysql.connector.connect(host="localhost",user="root",password="Chunnu@123",database="phonepay")
+    mydb = pymysql.connect(host="localhost",user="root",password="Chunnu@123",database="phonepay")
     mycursor=mydb.cursor()
     mycursor.execute("SELECT distinct Transactiontype FROM aggregated_transaction;")
     data = mycursor.fetchall()
@@ -631,13 +631,13 @@ def aggregate_trans_avg(aggregated_transaction):
 def get_map_transaction():
     mycursor.execute("SELECT * FROM map_transaction;")
     data = mycursor.fetchall()
-    d = pd.DataFrame(data, columns=mycursor.column_names)
+    d = pd.DataFrame(data, columns=("States","Years","Quaters","Districts","Transactioncount","Transactionamount"))
     return d
 def get_map_users():
     
     mycursor.execute("SELECT * FROM map_user;")
     data = mycursor.fetchall()
-    d = pd.DataFrame(data, columns=mycursor.column_names)
+    d = pd.DataFrame(data, columns=("States", "Years", "Quaters", "Districts", "Registereduser", "Appsopen"))
     return d
 
 
@@ -645,7 +645,7 @@ def get_map_users():
 def get_agg_use():
     mycursor.execute("SELECT * FROM phonepay.aggregated_user;")
     data=mycursor.fetchall()
-    dm=pd.DataFrame(data, columns=mycursor.column_names)
+    dm=pd.DataFrame(data, columns=("States", "Years", "Quaters", "Brands", "Transactioncount", "Percentage"))
     return dm
 
 
@@ -700,15 +700,13 @@ if selected == "Home":
     st.write("****PIN Authorization****")
     st.download_button("DOWNLOAD THE APP NOW", "https://www.phonepe.com/app-download/")
 if selected == "India":
-    def get_aggregated_tran():
-            mycursor.execute( "SELECT * FROM phone_pe.aggregated_transaction;")
-            data = mycursor.fetchall()
-            df = pd.DataFrame(data, columns=mycursor.column_names)
-            return df
-        
     MAP= st.selectbox("select your MAP",("Click to select","Total transactions","Registered Users","Apps Open"))
-
-    if MAP=='Total_transactions':
+    def get_aggregated_tran():
+            mycursor.execute( "SELECT * FROM phonepay.aggregated_transaction;")
+            data = mycursor.fetchall()
+            df = pd.DataFrame(data, columns=("States", "Years", "Quaters", "Transactiontype", "Transactioncount", "Transactionamount"))
+            return df
+    if MAP=='Total transactions':
             total_trans=get_aggregated_tran()
             total_trans=total_trans.groupby(["States"])[["Transactioncount"]].sum().reset_index()
             fig = px.choropleth(total_trans,
@@ -720,8 +718,13 @@ if selected == "India":
                                 title="Transactions state wise",
                                         height=1000, width=1200)
             fig.update_geos(fitbounds='locations', visible=False)
-            st.write(fig)      
+            st.plotly_chart(fig)      
     if MAP =="Registered Users":
+        def get_map_users():    
+            mycursor.execute("SELECT * FROM phonepay.map_user;")
+            data = mycursor.fetchall()
+            d = pd.DataFrame(data, columns=("States", "Years", "Quaters", "Districts", "Registereduser", "Appsopen"))
+            return d
         totaluser = get_map_users()
         totaluser = totaluser.groupby(["States"])[["Registereduser", "Appsopen"]].sum().reset_index()
         data =state_list()
@@ -734,8 +737,13 @@ if selected == "India":
                             title="Registered Users state wise",
                                     height=1000, width=1200)
         fig.update_geos(fitbounds='locations', visible=False)
-        st.write(fig)
-    if MAP=='App_opens':
+        st.plotly_chart(fig)
+    if MAP=='Apps Open':
+        def get_map_users():    
+            mycursor.execute("SELECT * FROM phonepay.map_user;")
+            data = mycursor.fetchall()
+            d = pd.DataFrame(data, columns=("States", "Years", "Quaters", "Districts", "Registereduser", "Appsopen"))
+            return d
         totaluser = get_map_users()
         totaluser = totaluser.groupby(["States"])[["Registereduser", "Appsopen"]].sum().reset_index()
         fig = px.choropleth(totaluser,
@@ -747,12 +755,12 @@ if selected == "India":
                             title="App opens state wise",
                                     height=1000, width=1200)
         fig.update_geos(fitbounds='locations', visible=False)
-        st.write(fig)    
+        st.plotly_chart(fig)    
 if selected == "Transactions Insights":
     def get_aggregated_tran():
             mycursor.execute( "SELECT * FROM phonepay.aggregated_transaction;")
             data = mycursor.fetchall()
-            df = pd.DataFrame(data, columns=mycursor.column_names)
+            df = pd.DataFrame(data, columns=("States", "Years", "Quaters", "Transactiontype", "Transactioncount", "Transactionamount"))
             return df
     with st.container():       
         st.markdown(":black[TRANSACTIONS INSIGHTS]")
@@ -836,15 +844,17 @@ if selected == "Transactions Insights":
         df = get_map_transaction()
         df = df.groupby(["Years", "Districts"])[["Transactioncount", "Transactionamount"]].sum().reset_index()
         k = df[df["Years"] == year_d]
-        c = k.sort_values(by=["Transactioncount"],ascending=False).head(10)
-        c = c[["Years", "Districts", "Transactioncount"]]
+        c = k.sort_values(by=["Transactioncount"],ascending=False).head(10)[["Districts", "Transactioncount"]]
         c_df = new_frame(c)
-        st.table(c_df)
+        fig = px.pie(c_df, values='Transactioncount', names='Districts', title=f'Top 10 Districts for Year {year_d}')
+
+# Display the pie chart
+        st.plotly_chart(fig, use_container_width=True)
 
         def get_top_transaction():
             mycursor.execute("SELECT * FROM top_transaction;")
             data = mycursor.fetchall()
-            d = pd.DataFrame(data, columns=mycursor.column_names)
+            d = pd.DataFrame(data, columns=("States","Years","Quaters", "pincodes", "Transaction_count","Transaction_amount"))
             return d
 
 
@@ -863,13 +873,16 @@ if selected == "Transactions Insights":
         year_df_State = st.selectbox(label="Select year for the state wise data", options=(2018, 2019, 2020, 2021, 2022, 2023), index=0)
 
         st.markdown("#### Top 10 States for Transaction Count wise")
-        df = get_agg_user()
-        df = df.groupby(["Years", "States"])[["Transactioncount", "Transactionamount"]].sum().reset_index()
+        df = get_agg_use()
+        df = df.groupby(["Years", "States"])[["Transactioncount", "Percentage"]].sum().reset_index()
         k1 = df[df["Years"] == year_df_State]
-        c1 = k1.sort_values(by=["Transactioncount"],ascending=False).head(10)
-        c1 = c1[["Years","States","Transactioncount"]]
+        c1 = k1.sort_values(by=["Transactioncount"],ascending=False).head(10)[["States","Transactioncount"]]
+        
         c1_df = new_frame(c1)
-        st.table(c1_df)
+        fig = px.pie(c1_df, values='Transactioncount', names='States', title=f'Top 10 States for Year {year_df_State}')
+
+# Display the pie chart
+        st.plotly_chart(fig, use_container_width=True)
 
 if selected == "User Insights":
     
@@ -886,7 +899,7 @@ if selected == "User Insights":
     def get_agg_use():
         mycursor.execute("SELECT * FROM phonepay.aggregated_user;")
         data=mycursor.fetchall()
-        dm=pd.DataFrame(data, columns=mycursor.column_names)
+        dm=pd.DataFrame(data, columns=("States", "Years", "Quaters", "Brands", "Transactioncount", "Percentage"))
         return dm
        
     
