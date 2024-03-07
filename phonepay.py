@@ -42,44 +42,6 @@ aggretransaction["States"] = aggretransaction["States"].str.replace("-"," ")
 aggretransaction["States"] = aggretransaction["States"].str.title()
 aggretransaction['States'] = aggretransaction['States'].str.replace("Dadra & Nagar Haveli & Daman & Diu", "Dadra and Nagar Haveli and Daman and Diu")
 
-custom_state_list = ['Andaman & Nicobar',
- 'Andhra Pradesh',
- 'Arunachal Pradesh',
- 'Assam',
- 'Bihar',
- 'Chandigarh',
- 'Chhattisgarh',
- 'Dadra and Nagar Haveli and Daman and Diu',
- 'Delhi',
- 'Goa',
- 'Gujarat',
- 'Haryana',
- 'Himachal Pradesh',
- 'Jammu & Kashmir',
- 'Jharkhand',
- 'Karnataka',
- 'Kerala',
- 'Ladakh',
- 'Lakshadweep',
- 'Madhya Pradesh',
- 'Maharashtra',
- 'Manipur',
- 'Meghalaya',
- 'Mizoram',
- 'Nagaland',
- 'Odisha',
- 'Puducherry',
- 'Punjab',
- 'Rajasthan',
- 'Sikkim',
- 'Tamil Nadu',
- 'Telangana',
- 'Tripura',
- 'Uttar Pradesh',
- 'Uttarakhand',
- 'West Bengal']
-aggretransaction['States'] = aggretransaction['States'].replace(dict(zip(aggregate_transaction_list, custom_state_list)))
-
 #aggreuser
 path2="C:/Users/Dheeraj/Desktop/phonepay/pulse/data/aggregated/user/country/india/state/"
 aggregate_user_list=os.listdir(path2)
@@ -113,44 +75,6 @@ aggreuser["States"] = aggreuser["States"].str.replace("andaman-&-nicobar-islands
 aggreuser["States"] = aggreuser["States"].str.replace("-"," ")
 aggreuser["States"] = aggreuser["States"].str.title()
 aggreuser['States'] = aggreuser['States'].str.replace("Dadra & Nagar Haveli & Daman & Diu", "Dadra and Nagar Haveli and Daman and Diu")
-custom_state_list = ['Andaman & Nicobar',
- 'Andhra Pradesh',
- 'Arunachal Pradesh',
- 'Assam',
- 'Bihar',
- 'Chandigarh',
- 'Chhattisgarh',
- 'Dadra and Nagar Haveli and Daman and Diu',
- 'Delhi',
- 'Goa',
- 'Gujarat',
- 'Haryana',
- 'Himachal Pradesh',
- 'Jammu & Kashmir',
- 'Jharkhand',
- 'Karnataka',
- 'Kerala',
- 'Ladakh',
- 'Lakshadweep',
- 'Madhya Pradesh',
- 'Maharashtra',
- 'Manipur',
- 'Meghalaya',
- 'Mizoram',
- 'Nagaland',
- 'Odisha',
- 'Puducherry',
- 'Punjab',
- 'Rajasthan',
- 'Sikkim',
- 'Tamil Nadu',
- 'Telangana',
- 'Tripura',
- 'Uttar Pradesh',
- 'Uttarakhand',
- 'West Bengal']
-
-aggreuser['States'] = aggreuser['States'].replace(dict(zip(aggregate_user_list, custom_state_list)))
  
 #maptransactionhistory
 path3="C:/Users/Dheeraj/Desktop/phonepay/pulse/data/map/transaction/hover/country/india/state/"
@@ -181,44 +105,6 @@ maptranshist["States"] = maptranshist["States"].str.replace("andaman-&-nicobar-i
 maptranshist["States"] = maptranshist["States"].str.replace("-"," ")
 maptranshist["States"] = maptranshist["States"].str.title()
 maptranshist['States'] = maptranshist['States'].str.replace("Dadra & Nagar Haveli & Daman & Diu", "Dadra and Nagar Haveli and Daman and Diu")
-custom_state_list = ['Andaman & Nicobar',
- 'Andhra Pradesh',
- 'Arunachal Pradesh',
- 'Assam',
- 'Bihar',
- 'Chandigarh',
- 'Chhattisgarh',
- 'Dadra and Nagar Haveli and Daman and Diu',
- 'Delhi',
- 'Goa',
- 'Gujarat',
- 'Haryana',
- 'Himachal Pradesh',
- 'Jammu & Kashmir',
- 'Jharkhand',
- 'Karnataka',
- 'Kerala',
- 'Ladakh',
- 'Lakshadweep',
- 'Madhya Pradesh',
- 'Maharashtra',
- 'Manipur',
- 'Meghalaya',
- 'Mizoram',
- 'Nagaland',
- 'Odisha',
- 'Puducherry',
- 'Punjab',
- 'Rajasthan',
- 'Sikkim',
- 'Tamil Nadu',
- 'Telangana',
- 'Tripura',
- 'Uttar Pradesh',
- 'Uttarakhand',
- 'West Bengal']
-
-maptranshist['States'] = maptranshist['States'].replace(dict(zip(map_transaction_list, custom_state_list)))
 #mapuser
 path4="C:/Users/Dheeraj/Desktop/phonepay/pulse/data/map/user/hover/country/india/state/"
 map_user_list=os.listdir(path4)
@@ -248,44 +134,6 @@ mapuserlist["States"] = mapuserlist["States"].str.replace("andaman-&-nicobar-isl
 mapuserlist["States"] = mapuserlist["States"].str.replace("-"," ")
 mapuserlist["States"] = mapuserlist["States"].str.title()
 mapuserlist['States'] = mapuserlist['States'].str.replace("Dadra & Nagar Haveli & Daman & Diu", "Dadra and Nagar Haveli and Daman and Diu")
-custom_state_list = ['Andaman & Nicobar',
- 'Andhra Pradesh',
- 'Arunachal Pradesh',
- 'Assam',
- 'Bihar',
- 'Chandigarh',
- 'Chhattisgarh',
- 'Dadra and Nagar Haveli and Daman and Diu',
- 'Delhi',
- 'Goa',
- 'Gujarat',
- 'Haryana',
- 'Himachal Pradesh',
- 'Jammu & Kashmir',
- 'Jharkhand',
- 'Karnataka',
- 'Kerala',
- 'Ladakh',
- 'Lakshadweep',
- 'Madhya Pradesh',
- 'Maharashtra',
- 'Manipur',
- 'Meghalaya',
- 'Mizoram',
- 'Nagaland',
- 'Odisha',
- 'Puducherry',
- 'Punjab',
- 'Rajasthan',
- 'Sikkim',
- 'Tamil Nadu',
- 'Telangana',
- 'Tripura',
- 'Uttar Pradesh',
- 'Uttarakhand',
- 'West Bengal']
-
-mapuserlist['States'] = mapuserlist['States'].replace(dict(zip(map_user_list, custom_state_list)))
 
 #toptransaction
 path5="C:/Users/Dheeraj/Desktop/phonepay/pulse/data/top/transaction/country/india/state/"
@@ -317,45 +165,6 @@ toptransactlist["States"] = toptransactlist["States"].str.replace("-"," ")
 toptransactlist["States"] = toptransactlist["States"].str.title()
 toptransactlist['States'] = toptransactlist['States'].str.replace("Dadra & Nagar Haveli & Daman & Diu", "Dadra and Nagar Haveli and Daman and Diu")
 
-custom_state_list = ['Andaman & Nicobar',
- 'Andhra Pradesh',
- 'Arunachal Pradesh',
- 'Assam',
- 'Bihar',
- 'Chandigarh',
- 'Chhattisgarh',
- 'Dadra and Nagar Haveli and Daman and Diu',
- 'Delhi',
- 'Goa',
- 'Gujarat',
- 'Haryana',
- 'Himachal Pradesh',
- 'Jammu & Kashmir',
- 'Jharkhand',
- 'Karnataka',
- 'Kerala',
- 'Ladakh',
- 'Lakshadweep',
- 'Madhya Pradesh',
- 'Maharashtra',
- 'Manipur',
- 'Meghalaya',
- 'Mizoram',
- 'Nagaland',
- 'Odisha',
- 'Puducherry',
- 'Punjab',
- 'Rajasthan',
- 'Sikkim',
- 'Tamil Nadu',
- 'Telangana',
- 'Tripura',
- 'Uttar Pradesh',
- 'Uttarakhand',
- 'West Bengal']
-
-toptransactlist['States'] = toptransactlist['States'].replace(dict(zip(top_transaction_list, custom_state_list)))
-
 #topuser
 path6="C:/Users/Dheeraj/Desktop/phonepay/pulse/data/top/user/country/india/state/"
 top_user_list=os.listdir(path6)
@@ -383,44 +192,6 @@ topuser["States"] = topuser["States"].str.replace("andaman-&-nicobar-islands","A
 topuser["States"] = topuser["States"].str.replace("-"," ")
 topuser["States"] = topuser["States"].str.title()
 topuser['States'] = topuser['States'].str.replace("Dadra & Nagar Haveli & Daman & Diu", "Dadra and Nagar Haveli and Daman and Diu")
-custom_state_list = ['Andaman & Nicobar',
- 'Andhra Pradesh',
- 'Arunachal Pradesh',
- 'Assam',
- 'Bihar',
- 'Chandigarh',
- 'Chhattisgarh',
- 'Dadra and Nagar Haveli and Daman and Diu',
- 'Delhi',
- 'Goa',
- 'Gujarat',
- 'Haryana',
- 'Himachal Pradesh',
- 'Jammu & Kashmir',
- 'Jharkhand',
- 'Karnataka',
- 'Kerala',
- 'Ladakh',
- 'Lakshadweep',
- 'Madhya Pradesh',
- 'Maharashtra',
- 'Manipur',
- 'Meghalaya',
- 'Mizoram',
- 'Nagaland',
- 'Odisha',
- 'Puducherry',
- 'Punjab',
- 'Rajasthan',
- 'Sikkim',
- 'Tamil Nadu',
- 'Telangana',
- 'Tripura',
- 'Uttar Pradesh',
- 'Uttarakhand',
- 'West Bengal']
-
-topuser['States'] = topuser['States'].replace(dict(zip(top_user_list, custom_state_list)))
 
 #SQL 
 mydb = pymysql.connect(
